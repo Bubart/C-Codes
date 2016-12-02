@@ -15,7 +15,6 @@ void initStack(Stack *S);
 void Push(Stack *S, char x);
 void Pop(Stack *S);
 char Top(Stack S);
-
 Boolean isFull(Stack S);
 Boolean isEmpty(Stack S);
 
@@ -63,6 +62,7 @@ char Top(Stack S)
 {
 	return(isEmpty(S)==FALSE)?S->E[S->top]:'!'; /*returns a ! if Stack is Empty*/
 }
+
 
 Boolean isEmpty(Stack S)
 {
