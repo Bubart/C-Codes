@@ -24,9 +24,10 @@ int main()
 	Enqueue(&Q, 'b');
 	Enqueue(&Q, 'b');
 	Enqueue(&Q, 'b');
-	Enqueue(&Q, 'b');
+	Enqueue(&Q, 'c');
 
 	Dequeue(&Q);
+	
 	Display(Q);
 	return 0;
 }
