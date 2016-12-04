@@ -48,10 +48,13 @@ void Enqueue(Queue *Q, char x)
 		(*Q)->prev = (*Q)->next = (*Q);
 	}else{
 		temp = (Queue)malloc(sizeof(nodeType));
-		(*Q)->prev->next = temp;
-		temp->prev = (*Q)->prev;
-		(*Q)->prev = temp;
-		temp->next = (*Q);
+		if(temp!=NULL){
+			(*Q)->prev->next = temp;
+			temp->prev = (*Q)->prev;
+			(*Q)->prev = temp;
+			temp->next = (*Q);
+		}
+
 	}
 	(*Q)->prev->elem = x;
 }
