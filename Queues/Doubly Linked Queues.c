@@ -10,6 +10,7 @@ void initQueue(Queue *Q);
 void Display(Queue Q);
 void Enqueue(Queue *Q, char x);
 void Dequeue(Queue *Q);
+char Front(Queue Q);
 
 int main()
 {
@@ -22,6 +23,8 @@ int main()
 	Dequeue(&Q);
 	
 	Display(Q);
+	
+	printf("\n\n%c", Front(Q));
 	
 	return 0;
 }
@@ -71,4 +74,9 @@ void Dequeue(Queue *Q)
 		(*Q) = (*Q)->next;
 		free(temp);
 	}
+}
+
+char Front(Queue Q)
+{
+	return Q->elem;
 }
