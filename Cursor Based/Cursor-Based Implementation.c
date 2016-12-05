@@ -22,10 +22,12 @@ typedef struct{
 }VirtualHeap;
 
 typedef int List;
+
 void display(VirtualHeap VH, List L);
 void initializeVH(VirtualHeap *VH);
 void insertLast(VirtualHeap *VH, int *L, char *fName, char *lName, char middleInitial);
 void addNode(VirtualHeap *VH, List *L, nametype n);
+void freeNode(VirtualHeap *VH, List *L);
 
 int main()
 {
@@ -37,19 +39,35 @@ int main()
 	
 	insertLast(&VH, &L, "ROBERT", "LIM", 'L');
 	
-	for(i=0;i<SIZE;i++){
-		printf("%s %s %c pointer to the next node: %d\n", VH.NODES[i].elem.FN, VH.NODES[i].elem.LN, VH.NODES[i].elem.MI, VH.NODES[i].next);
-	}
+	
 
 	nametype n;
 	strcpy(n.FN,"Samantha");
 	strcpy(n.LN,"LIM");
-	n.MI = 'L';
+	n.MI = 'S';
+	
 	
 	printf("Avail : %d head: %d\n", VH.avail, L);
 	printf("\n\n");
+	
 	addNode(&VH, &L, n);
+	addNode(&VH, &L, n);
+	addNode(&VH, &L, n);
+	addNode(&VH, &L, n);
+	
+	for(i=0;i<SIZE;i++){
+		printf("%s %s %c pointer to the next node: %d\n", VH.NODES[i].elem.FN, VH.NODES[i].elem.LN, VH.NODES[i].elem.MI, VH.NODES[i].next);
+	}
+	
+	printf("\n\n");
 	display(VH, L);
+	
+	freeNode(&VH, &L);
+	
+	printf("\n\n");
+	display(VH, L);
+	
+	
 	return 0;
 }
 
@@ -57,15 +75,9 @@ void initializeVH(VirtualHeap *VH)
 {
 	int x, lim=SIZE-1;
 	VH->avail=0;
-	for(x=VH->avail;x<lim;x++){
-		strcpy(VH->NODES[x].elem.FN, EMPTYFIRST);
-		strcpy(VH->NODES[x].elem.LN, EMPTYLAST);
-		VH->NODES[x].elem.MI = EMPTY;
+	for(x=0;x<lim;x++){
 		VH->NODES[x].next = x+1;
 	}
-	strcpy(VH->NODES[x].elem.FN, EMPTYFIRST);
-	strcpy(VH->NODES[x].elem.LN, EMPTYLAST);
-	VH->NODES[x].elem.MI = EMPTY;
 	VH->NODES[x].next = -1;
 }
 
@@ -109,5 +121,19 @@ void addNode(VirtualHeap *VH, List *L, nametype n)
 		VH->avail = VH->NODES[VH->avail].next;
 		VH->NODES[temp].next=*L;
 		*L = temp;
+	}
+}
+
+void freeNode(VirtualHeap *VH, List *L)
+{
+	int *trav = L, temp;
+	if(*L!=-1){
+		temp = VH->avail;
+		VH->avail = *trav;
+		
+		*trav = VH->NODES[VH->avail].next;
+		VH->NODES[VH->avail].next = temp;
+		
+		
 	}
 }
