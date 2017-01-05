@@ -128,6 +128,7 @@ void freeNode(VirtualHeap *VH, List *L)
 {
 	int *trav = L, temp;
 	if(*L!=-1){
+		
 		temp = VH->avail;
 		VH->avail = *trav;
 		
