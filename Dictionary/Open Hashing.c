@@ -33,17 +33,18 @@ int main()
 	Dictionary A;
 	init(A);
 	studRec P[] = {
-					{{"Robert Michael","Lim", 'L'}, 15101137, "BSCS"},
-					{{"Samantha","Lim", 'L'}, 13100150, "BSCS"},
-					{{"Marvin Gwapo","Lim", 'L'}, 15101138, "BSCS"}
+					{{"Robert Michael","Albo",'L'}, 151011374, "BSCS"},
+					{{"Samantha","A", 'L'}, 131001503, "BSCS"},
+					{{"Samantha","Aa", 'L'}, 131001502, "BSCS"},
+					{{"Marvin Gwapo","Lja", 'L'}, 151011381, "BSCS"}
 					
 				};			
 	insert(A, P[0]);
 	insert(A, P[1]);
 	insert(A, P[2]);
+	insert(A, P[3]);
 	
-	deleteRec(A, P[2]);
-	deleteRec(A, P[2]);
+
 	
 	display(A);
 	return 0;
@@ -70,6 +71,9 @@ void display(Dictionary D)
 		while(temp!=NULL){
 			printf("\t%s\t%s\t\t%c\t%s\t%d", temp->S.N.FN, temp->S.N.LN, temp->S.N.MI, temp->S.course, temp->S.idNumber);
 			temp = temp->next;
+			if(temp == NULL){
+				printf("->NULL");
+			}
 			printf("\n");
 		}
 		printf("\n");
@@ -113,7 +117,7 @@ void deleteRec(Dictionary D, studRec S)
 
 void insert(Dictionary D, studRec S)
 {
-	nPtr temp;
+	nPtr temp, *trav;
 	int h;
 	h = hash(S.N.LN);
 	if(D[h] == NULL){
@@ -122,6 +126,7 @@ void insert(Dictionary D, studRec S)
 		D[h]->next = NULL;
 	}else{
 		if(isMember(D, S)==FALSE){
+			for(trav = &D[h]; *trav!=NULL  && strcmp((*trav)->S.N.LN, S.N.LN) < 0;trav = &(*trav)->next){}
 			temp = (nPtr)malloc(sizeof(nodeType));
 			if(temp!=NULL){
 				temp->S = S;
