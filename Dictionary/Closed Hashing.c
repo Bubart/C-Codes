@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #define SIZE 7
 #define EMPTY -1
-#define DELETED 0
+#define DELETED -2
 
 typedef struct{
 	char FN[24], LN[16], MI;
@@ -22,19 +22,36 @@ typedef enum{TRUE,FALSE}Boolean;
 void initDictionary(Dictionary D);
 void insert(Dictionary D, studType P);
 void display(Dictionary D);
+void deleteDictionary(Dictionary D, studType P);
 
 int main()
 {
 	Dictionary A;
 	initDictionary(A);
-
-	studType P = {{"Robert", "Lim", 'L'}, "BSCS", 2, 15101137};
-	studType P1 = {{"Robert", "Lim", 'L'}, "BSCS", 2, 15101130};
-
-	insert(A, P);
-
+	A[1].idNumber = A[0].idNumber;
+	
+	studType P[] = {
+					{{"Robert", "Lim", 'L'}, "BSCS", 2, 5},
+					{{"Robert", "Lim", 'L'}, "BSCS", 2, 26},
+					{{"Robert", "Lim", 'L'}, "BSCS", 2, 32},
+					{{"Robert", "Lim", 'L'}, "BSCS", 2, 35},
+					{{"Robert", "Lim", 'L'}, "BSCS", 2, 45},
+					{{"Robert", "Lim", 'L'}, "BSCS", 2, 54},
+					{{"Robert", "Lim", 'L'}, "BSCS", 2, 63},
+					
+				
+				};
+	int i=0;
+//	for(i=0;i<SIZE;i++){
+//	
+	insert(A, P[1]);
+	insert(A, P[0]);
+	insert(A, P[2]);
+	insert(A, P[3]);
 
 	
+	deleteDictionary(A, P[1]);
+
 	display(A);
 	
 	return 0;
@@ -61,32 +78,29 @@ int hash(unsigned long x)
 
 Boolean isMember(Dictionary D, studType P)
 {
-	int i, hv;
+	int x, hv = hash(P.idNumber);
+
 	Boolean retval = FALSE;
-	
-	hv = hash(P.idNumber);
 	
 	if(D[hv].idNumber == P.idNumber){
 		retval = TRUE;
 	}else{
-		i = hv;
-		//do{i =(i+1)%SIZE;}while(i!= hv && D[i].yearLevel != P.idNumber);
-		for(i = hv ; i!=hv && D[i].idNumber != P.idNumber; i = (i+1)%SIZE){}
-		printf("%d %d\n", D[i].idNumber, P.idNumber);
+		x = (hv+1)%SIZE;
+			printf("here: %d %d\n", x, hv);
+		while(x!=hv && D[x].idNumber!= P.idNumber){
+			x = (x+1)%SIZE;
+		}
+		retval = (D[hv].idNumber == P.idNumber)?TRUE:FALSE;
 	}
+	printf("\n%d %d\n", D[x].idNumber, D[hv].idNumber);
 	
-	if(i != hv){
-		retval = TRUE;
-	}else{
-		retval = FALSE;
-	}
 	
 	return retval;
 }
 
 void insert(Dictionary D, studType P)
 {
-	int hv, i, ctr;
+	int hv, x, ctr = 0;
 	
 	hv = hash(P.idNumber);
 	
@@ -94,11 +108,32 @@ void insert(Dictionary D, studType P)
 		if(D[hv].yearLevel == EMPTY || D[hv].yearLevel == DELETED){
 			D[hv] = P;
 		}else{
-			for(i = hv ; i < SIZE && (D[i].yearLevel != EMPTY && D[i].yearLevel !=DELETED )==1 ; i = (i+1)%SIZE){}
-			D[i] = P;
+			x = (hv+1)%SIZE;
+			while(x!=hv && D[x].yearLevel!=EMPTY && D[x].yearLevel!=DELETED){
+				x = (x+1)%SIZE;
+			}
+			D[x] = P;
 		}
 	}else{
-		printf("Already in the dictionary");
+		printf("Already in the dictionary\n");
+	}
+}	
+
+void deleteDictionary(Dictionary D, studType P)
+{
+	int hv, x, ctr = 0;
+	hv = hash(P.idNumber);
+	printf("\n\n%d\n", D[hv].idNumber);
+	if(D[hv].idNumber == P.idNumber){
+		D[hv].yearLevel = DELETED;
+	}else{
+		x = (hv+1)%SIZE;
+		while(x != hv && D[x].yearLevel != EMPTY && D[x].idNumber!=P.idNumber){
+			x = (x+1)%SIZE;
+		}
+		if(D[x].idNumber == P.idNumber){
+			D[x].yearLevel = DELETED;
+		}
 	}
 }
 
@@ -106,7 +141,13 @@ void display(Dictionary D)
 {
 	int i;
 	for(i=0;i<SIZE;i++){
-		printf("Index %d: %d", i, D[i].idNumber);
+		printf("Index [%d]: ", i);
+		if(D[i].yearLevel==DELETED){
+			printf("Deleted node!");
+		}else{
+			printf("%d", D[i].idNumber);
+			
+		}
 		printf("\n");
 	}
 }
