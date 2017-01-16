@@ -134,7 +134,7 @@ void insertDictionary(Dictionary *D, studType S)
 
 	
 	if(isMember((*D), S)==FALSE){
-		if(D->cells[hv].checker == EMPTY || D->cells[hv].checker == DELETED){
+		if(D->cells[hv].checker != OCCUPIED){
 			D->cells[hv].Student = S;
 			D->cells[hv].checker = OCCUPIED;
 		}else{
