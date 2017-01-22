@@ -38,8 +38,10 @@ int main()
 		scanf("%d",&z);
 		insert(&A,z);
 	}
+	printf("After Insertion: ");display(A);
 	heapifyMin(&A);
-	deleteMin(&A);
+	printf("After Min Heapification: ");display(A);
+	printf("After deleteMin: ");deleteMin(&A);
 	display(A);
 	return 0;
 }
