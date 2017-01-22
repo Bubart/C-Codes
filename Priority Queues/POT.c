@@ -23,6 +23,7 @@ void insert(Set *A, int x);
 void display(Set A);
 void insertMin(Set *A, int x);
 void heapifyMin(Set *A);
+int deleteMin(Set *A);
 
 int main()
 {
@@ -38,6 +39,7 @@ int main()
 		insert(&A,z);
 	}
 	heapifyMin(&A);
+	deleteMin(&A);
 	display(A);
 	return 0;
 }
@@ -93,6 +95,27 @@ void heapifyMin(Set *A)
 			rightChild = leftChild +1;
 		}
 	}
+}
+
+int deleteMin(Set *A)
+{
+	int parentPos, leftChild, rightChild, temp, top;
+	if(A->last > 0){
+		top = A->elem[0] = A->elem[A->last--];
+		parentPos = 0;
+		leftChild = 1;
+		rightChild = 2;
+		
+		while(leftChild <= A->last && (top > A->elem[leftChild] || top > A->elem[rightChild])){
+			temp = (A->elem[leftChild] < A->elem[rightChild])?leftChild:rightChild;
+			A->elem[parentPos] = A->elem[temp];
+			A->elem[temp] = top;
+			parentPos = temp;
+			leftChild = (parentPos*2)+1;
+			rightChild = leftChild +1; 
+		}
+	}
+	
 }
 
 void display(Set A)
