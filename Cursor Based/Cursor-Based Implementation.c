@@ -129,11 +129,10 @@ void freeNode(VirtualHeap *VH, List *L)
 	int *trav = L, temp;
 	if(*L!=-1){
 		
-		temp = VH->avail;
-		VH->avail = *trav;
-		
-		*trav = VH->NODES[VH->avail].next;
-		VH->NODES[VH->avail].next = temp;
+		temp = (*trav);
+		(*trav )= VH->NODES[temp].next;
+		VH->NODES[temp].next = VH->avail;
+		VH->avail = temp;
 		
 		
 	}

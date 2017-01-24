@@ -42,6 +42,10 @@ int main()
 	printf("After Insertion: ");display(A);
 	heapifyMin(&A);
 	printf("After Min Heapification: ");display(A);
+	deleteMin(&A);
+	printf("After DeleteMin: ");display(A);
+	heapifyMin(&A);
+	printf("After Min Heapification: ");display(A);
 	heapSortMax(&A);
 	printf("After heapsortMax: ");display(A);
 	return 0;
@@ -109,8 +113,8 @@ int deleteMin(Set *A)
 		leftChild = 1;
 		rightChild = 2;
 		
-		while(leftChild <= A->last && (top > A->elem[leftChild] ||(rightChild > A->last|| top > A->elem[rightChild]))){
-			temp = (rightChild > A->last || A->elem[leftChild] < A->elem[rightChild])?leftChild:rightChild;
+		while(leftChild <= A->last && (top > A->elem[leftChild] || top > A->elem[rightChild])){
+			temp = (A->elem[leftChild] < A->elem[rightChild])?leftChild:rightChild;
 			A->elem[parentPos] = A->elem[temp];
 			A->elem[temp] = top;
 			parentPos = temp;
