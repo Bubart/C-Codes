@@ -110,16 +110,19 @@ void heapSort(Heap *H);
  	 initDictionary(&A);
  	 displayDictionary(A);
   	
+  	 printf("\n\n\nProblem #2:: ");  
   	populateDictionary(A);
   	 displayDictionary(A);
     
     
   	deleteDic(A, delete01);
   	deleteDic(A, delete02);
+  	printf("\n\n\nProblem #3:: After Delete ");   
   	displayDictionary(A);
   	
   	insertDic(A, insert01);
   	insertDic(A,insert02);
+  	printf("\n\n\nProblem #3:: After Insert "); 
   	displayDictionary(A);
   	
   	initMaxHeap(&B); 
@@ -128,11 +131,12 @@ void heapSort(Heap *H);
     displayMaxHeap(B); system("cls");
     
     heapSort(&B);
+    printf("\n\n\nProblem #5:: ");  
     displayMaxHeap(B);
 /*---------------------------------------------------------------------------------
  * 	Problem #2 ::  Call populateDictionary() and display resulting dictionary.    *
  *                                                                                *
- *  printf("\n\n\nProblem #2:: ");                                                *
+ *                                               *
  *--------------------------------------------------------------------------------*/
  
  
@@ -141,15 +145,15 @@ void heapSort(Heap *H);
  *                 variables and display resulting dictionary. Call insertDic two  *
  *                 times passing insert01 and insert02 variables and display       *
  *                 resulting dictionary.                                           *  
- *  printf("\n\n\nProblem #3:: After Delete ");                                    *
- *  printf("\n\n\nProblem #3:: After Insert ");                                    *
+ *                                    *
+ *                                   *
  *---------------------------------------------------------------------------------*/
  
 
 /*---------------------------------------------------------------------------------
  * 	Problem #4 ::  Initialize and populate the max Heap and call displayMaxHeap().*
  *                                                                                *
- *  printf("\n\n\nProblem #4:: ");                                                *
+ *                                                *
  *--------------------------------------------------------------------------------*/	
  
        	
