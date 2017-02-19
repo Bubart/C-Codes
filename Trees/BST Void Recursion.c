@@ -50,7 +50,7 @@ void insert(BST *B, int x)
 	}else{
 		if(x < (*B)->elem){
 			insert(&(*B)->left, x);
-		}else{
+		}else if(x > (*B)->elem){
 			insert(&(*B)->right, x);
 		}
 	}
@@ -59,7 +59,7 @@ void insert(BST *B, int x)
 void deleteBST(BST *B, int x)
 {
 	BST temp;
-	if((B)==NULL){
+	if((*B)==NULL){
 		*B = NULL;
 	}else if(x < (*B)->elem){
 		deleteBST(&(*B)->left, x);
