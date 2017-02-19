@@ -12,6 +12,7 @@ Boolean isMember(BST B, int x);
 void insert(BST *B, int x);
 void deleteBST(BST *B, int x);
 BST findMin(BST B);
+void Inorder(BST B);
 
 int main()
 {
@@ -31,10 +32,12 @@ int main()
 	printf("%d\n", B->elem);
 	
 	if(isMember(B,0)==TRUE){
-		printf("MEMBER");
+		printf("MEMBER\n");
 	}else{
-		printf("NOT A MEMBER");
+		printf("NOT A MEMBER\n");
 	}
+	
+	Inorder(B);
 	return 0;
 }
 
@@ -102,5 +105,14 @@ Boolean isMember(BST B, int x)
 		return isMember(B->left, x);
 	}else{
 		return isMember(B->right, x);
+	}
+}
+
+void Inorder(BST B)
+{
+	if(B!=NULL){
+		Inorder(B->left);
+		printf("%d\n", B->elem);
+		Inorder(B->right);
 	}
 }
