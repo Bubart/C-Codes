@@ -37,7 +37,7 @@ int main()
 	for(y = 0;y < x;y++){
 		printf("Element no.%d: ",y+1);
 		scanf("%d",&z);
-		insertMin(&A,z);
+		insert(&A,z);
 	}
 	printf("After Insertion: ");display(A);
 	heapifyMin(&A);

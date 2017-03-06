@@ -36,7 +36,7 @@ int main()
 	}else{
 		printf("NOT A MEMBER\n");
 	}
-	
+	printf("%d\n\n", B->elem);
 	Inorder(B);
 	return 0;
 }
